@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box; }
+
+a,
+button {
+  font-size: 15px; }
+
+a.button {
+  text-decoration: none; }
+
+button.button {
+  border: 1px solid white;
+  font-family: 'Oswald', sans-serif;
+  padding: 0;
+  cursor: pointer;
+  font-size: x-large;
+  font-style: normal; }
+  @media screen and (-ms-high-contrast: active) {
+    button.button {
+      border: 1px solid white; } }
+
+a.button,
+button.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+  position: absolute;
+  top: auto;
+  left: 5%;
+  z-index: 1;
+  background-color: white;
+  color: black;
+  border-radius: 1px;
+  min-width: 12ch;
+  min-height: 40px;
+  text-align: center;
+  line-height: 1.1;
+  transition: 220ms all ease-in-out; }
+  a.button:hover, a.button:active,
+  button.button:hover,
+  button.button:active {
+    background-color: white; }
+  a.button:focus,
+  button.button:focus {
+    outline-style: solid;
+    outline-color: white;
+    box-shadow: 0 0 0 2px white; }
+  a.button--small,
+  button.button--small {
+    font-size: 13px; }
+
+/*# sourceMappingURL=button.css.map */
