@@ -129,6 +129,23 @@ a:hover{
     overflow: hidden;
     margin:0.5rem 0 2rem 0;
 }
+
+.cl-card-more {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cl-card-main-copyright {
+  font-size: 0.5rem;
+  color: #999;
+}
+
+.cl-card-more a {
+  font-size: 1rem;
+  color: #007aff;
+  text-decoration: none;
+}
 /*page*/
 .pagination .page-item.active .page-link{
     background-color:#FF9400;
@@ -176,7 +193,7 @@ a:hover{
 /*right-recommended*/
 .right-recommended{
     padding:10px;
-    height: 120px;
+    height: 220px;
     overflow: hidden;
 }
 .right-recommended-list{
@@ -195,6 +212,14 @@ a:hover{
     height: 40px;
     line-height:40px;
     overflow: hidden;
+}
+.right-recommended img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 使用 cover 缩放图片 */
+  border: 0px solid #ccc; /* 添加边框 */
+  box-sizing: border-box; /* 使用 border-box 盒模型确保边框大小与图片大小相匹配 */
 }
 /*label*/
 .label{

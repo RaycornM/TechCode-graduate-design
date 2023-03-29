@@ -62,7 +62,8 @@ body.header-sticky .edison-header {
 	z-index: 15;
 	width: 100%;
 	background: #ffffff;
-	padding: 5px 0; /* 将上下内边距减小为10px */
+	padding: 5px 0;
+	/* 将上下内边距减小为10px */
 }
 
 .edison-header .wsite-logo {
@@ -104,7 +105,8 @@ body.header-sticky .edison-header {
 }
 
 .main-content {
-	margin-top: 100px; /* 根据导航栏的实际高度调整这个值 */
+	margin-top: 100px;
+	/* 根据导航栏的实际高度调整这个值 */
 }
 
 .dummy-menu {
@@ -384,7 +386,7 @@ footer {
 
 .tit,
 .tit2 {
-  line-height: 1.2;
+	line-height: 1.2;
 }
 
 .tit {
@@ -405,13 +407,13 @@ footer {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .tit {
-    font-size: 2rem;
-  }
+	.tit {
+		font-size: 2rem;
+	}
 
-  .tit2 {
-    font-size: 1rem;
-  }
+	.tit2 {
+		font-size: 1rem;
+	}
 }
 
 .tit3 {
@@ -462,11 +464,11 @@ img {
 }
 
 .text-wrapper {
-  position: absolute;
-  bottom: 28%;
-  left: 23%;
-  z-index: 3;
-  color: #fff;
+	position: absolute;
+	bottom: 28%;
+	left: 23%;
+	z-index: 3;
+	color: #fff;
 }
 
 .left-bg-text,
@@ -479,18 +481,57 @@ img {
 	white-space: nowrap;
 	writing-mode: vertical-lr;
 	font-family: 'Josefin Sans', sans-serif;
+	opacity: 0;
+	/* 设置初始透明度为 0 */
+	animation-duration: 1s;
+	/* 动画持续时间 */
+	animation-timing-function: ease;
+	/* 动画速度曲线 */
+	animation-fill-mode: forwards;
+	/* 保持动画结束时的状态 */
 }
 
 .left-bg-text {
 	left: 1rem;
-	transform: translateY(-50%) rotate(180deg);
+	transform: translateY(-50%) rotate(180deg) translateX(-100%);
 	text-orientation: mixed;
+	animation-name: fadeInLeft;
+	/* 设置动画名称 */
 }
 
 .right-bg-text {
 	right: 1rem;
-	transform: translateY(-50%);
+	transform: translateY(-50%) translateX(100%);
 	text-orientation: mixed;
+	animation-name: fadeInRight;
+	/* 设置动画名称 */
+
+}
+
+/* 定义 fadeInLeft 动画 */
+@keyframes fadeInLeft {
+	0% {
+		opacity: 0;
+		transform: translateY(-50%) rotate(180deg) translateX(-100%);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(-50%) rotate(180deg);
+	}
+}
+
+/* 定义 fadeInRight 动画 */
+@keyframes fadeInRight {
+	0% {
+		opacity: 0;
+		transform: translateY(-50%) translateX(100%);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(-50%);
+	}
 }
 
 .copyright {
