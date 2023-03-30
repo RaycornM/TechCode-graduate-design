@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产品对比</title>
+  <style>
+    .product-info {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      display: inline-block;
+      width: calc(33% - 20px);
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <select id="product-select-1" class="product-select"></select>
+  <select id="product-select-2" class="product-select"></select>
+  <select id="product-select-3" class="product-select"></select>
+
+  <div id="product-info-1" class="product-info" style="display: none;"></div>
+  <div id="product-info-2" class="product-info" style="display: none;"></div>
+  <div id="product-info-3" class="product-info" style="display: none;"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      loadProducts();
+
+      $('.product-select').on('change', function () {
+        const productId = $(this).val();
+        const productInfoId = $(this).attr('id').replace('select', 'info');
+        loadProductInfo(productId, productInfoId);
+      });
+    });
+
+    function loadProducts() {
+      $.get('/api/products', function (products) {
+        products.forEach((product) => {
+          const option = `<option value="${product.id}">${product.brand} ${product.model}</option>`;
+          $('.product-select').append(option);
+        });
+      });
+    }
+
+    function loadProductInfo(productId, productInfoId) {
+      if (productId) {
+        $.get(`/api/products/${productId}`, function (product) {
+          const productInfo = `
+            <h3>${product.brand} ${product.model}</h3>
+            <dl>
+              <dt>参数1：</dt>
+              <dd>${product.parameter1}</dd>
+              <dt>参数2：</dt>
+              <dd>${product.parameter2}</dd>
+              <dt>参数3：</dt>
+              <dd>${product.parameter3}</dd>
+              <dt>参数4：</dt>
+              <dd>${product.parameter4}</dd>
+              <dt>参数5：</dt>
+              <dd>${product.parameter5}</dd>
+            </dl>
+          `;
+          $(`#${productInfoId}`).html(productInfo).show();
+        });
+      } else {
+        $(`#${productInfoId}`).html('').hide();
+      }
+    }
+  </script>
+</body>
+</html>

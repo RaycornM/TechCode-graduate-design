@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>帖子页面</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.0.0/css/jquery.emojipicker.css">
+</head>
+<body>
+  <h1>帖子页面</h1>
+  <div id="post-content">
+    <!-- 帖子内容在这里显示 -->
+  </div>
+  <div id="comments">
+    <!-- 评论内容在这里显示 -->
+  </div>
+  <form id="comment-form">
+    <input type="hidden" id="parent-comment-id" value="">
+    <textarea id="comment-text" placeholder="写下你的评论..."></textarea>
+    <button type="submit">发表评论</button>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.0.0/jquery.emojipicker.min.js"></script>
+  <script>
+    const postId = getPostIdFromUrl(); // 从URL中获取帖子ID
+
+    $(document).ready(function () {
+      loadPost(postId);
+      loadComments(postId);
+
+      $('#comment-form').on('submit', function (e) {
+        e.preventDefault();
+        const text = $('#comment-text').val();
+        const parentCommentId = $('#parent-comment-id').val();
+        submitComment(postId, text, parentCommentId);
+      });
+
+      $('#comments').on('click', '.reply-button', function () {
+        const parentCommentId = $(this).data('id');
+        $('#parent-comment-id').val(parentCommentId);
+      });
+    });
+
+    function loadPost(postId) {
+      $.get(`/api/posts/${postId}`, function (post) {
+        const html = `
+          <h2>${post.title}</h2>
+          <p>${post.content}</p>
+        `;
+        $('#post-content').html(html);
+      });
+    }
+
+    function loadComments(postId) {
+      $.get(`/api/posts/${postId}/comments`, function (comments) {
+        displayComments(comments);
+      });
+    }
+
+    function displayComments(comments) {
+      let html = '';
+      comments.forEach((comment) => {
+        html += `
+          <div class="comment" data-id="${comment.id}">
+            <h3>${comment.author}</h3>
+            <p>${comment.text}</p>
+            <button class="reply-button" data-id="${comment.id}">回复</button>
+          </div>
+        `;
+      });
+      $('#comments').html(html);
+    }
+
+    function submitComment(postId, text, parentCommentId) {
+      $.post('/api/comments', { postId, text, parentCommentId }, function () {
+        $('#comment-text').val('');
+        $('#parent-comment-id').val('');
+        loadComments(postId);
+      });
+    }
+
+    function getPostIdFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('id');
+    }
+  </script>
+</body>
+</html>

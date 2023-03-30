@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>论坛页面</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #F3F3F3;
+				padding: 0;
+				margin: 0;
+			}
+
+			header {
+				background-color: #4A90E2;
+				padding: 20px;
+				text-align: center;
+				color: white;
+				font-size: 1.5em;
+			}
+
+			#search-container {
+				display: flex;
+				justify-content: center;
+		 	margin: 20px 0;
+		 }
+
+			#search {
+				width: 60%;
+				padding: 10px;
+				font-size: 1.2em;
+				border: 1px solid #CCCCCC;
+			}
+
+			#forum-container {
+				width: 70%;
+				margin: 0 auto;
+				background-color: white;
+				padding: 20px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+
+			.post {
+				padding: 10px 0;
+				border-bottom: 1px solid #CCCCCC;
+			}
+
+			.post:last-child {
+				border-bottom: none;
+			}
+
+			.post-title {
+				font-size: 1.5em;
+				margin: 0;
+			}
+
+			.post-info {
+				color: #999999;
+				font-size: 0.9em;
+			}
+
+			#new-post-btn {
+				display: block;
+				width: 100%;
+				padding: 10px;
+				background-color: #4A90E2;
+				color: white;
+				text-align: center;
+				text-decoration: none;
+				font-weight: bold;
+				border-radius: 5px;
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>论坛页面</h1>
+		<div id="search-container">
+			<input type="text" id="search" placeholder="搜索帖子">
+		</div>
+		<div id="forum-page">
+			<div id="forum-container">
+				<div id="forum-posts"></div>
+				<form id="create-post-form">
+				  <input type="text" id="post-title" placeholder="标题" required>
+				  <input type="text" id="post-author" placeholder="作者" required>
+				  <button type="submit">发新帖</button>
+				</form>
+				<div id="posts-container"></div>
+			</div>
+		</div>
+		<div id="pagination">
+			<!-- 分页链接在这里显示 -->
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
+			let currentPage = 1;
+			const postsPerPage = 10;
+
+			$(document).ready(function() {
+				loadPosts(currentPage);
+
+				$('#pagination').on('click', 'a', function(e) {
+					e.preventDefault();
+					currentPage = parseInt($(this).data('page'));
+					loadPosts(currentPage);
+				});
+			});
+
+			function loadPosts(page) {
+			  $.get(`/api/posts?page=${page}&limit=${postsPerPage}`, function(data) {
+			    const posts = data; // 直接使用返回的数组作为帖子数据
+				console.log(data)
+			    // 假设服务器返回的数组长度等于每页的帖子数，可以使用这个公式计算总页数
+			    // 但这可能不是最佳方法，您可能需要根据实际情况调整
+			    const totalPages = Math.ceil(data.length / postsPerPage);
+			
+			    displayPosts(posts);
+			    displayPagination(totalPages);
+			  });
+			}
+
+			function displayPosts(posts) {
+			  let html = '';
+			  posts.forEach((post) => {
+			    html += `
+			      <div class="post">
+			        <h2 class="post-title">${post.title}</h2>
+			        <p class="post-info">作者：${post.author} | 发布日期：${post.date}</p>
+			        <a href="/post?id=${post.id}">查看详情</a>
+			      </div>
+			    `;
+			  });
+			  $('#forum-container').html(html);
+			}
+
+			// function displayPagination(totalPages) {
+			//   let html = '';
+			//   for (let i = 1; i <= totalPages; i++) {
+			//     html += `<a href="#" data-page="${i}">${i}</a>`;
+			//   }
+			//   $('#pagination').html(html);
+			// }
+		</script>
+	</body>
+</html>
