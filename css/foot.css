@@ -1,70 +1,125 @@
-@media (min-width: 992px) and (max-width: 1200px) {
-	.footer-wrapper {
-		padding-left: 0;
-		padding-right: 0;
-		margin-left: 0;
-		margin-right: 0;
-		padding-top: 0;
-	}
+footer {
+	background-color: white;
+	font-family: Playfair Display;
+	font-size: 13px;
+	border-top: 2px solid #576A7A;
+	height: 200px;
+}
 
-	.footer-text {
-		padding-right: 0;
-	}
+footer .dingyuetit {
+	position: relative;
+	top: auto;
+	margin: auto;
+	color: black;
+	font-size: x-large;
+	font-family: "SmileySans-Oblique";
+}
 
-	.footer-area {
-		padding-left: 0;
-		padding-right: 0;
-	}
+footer .bs {
+	position: relative;
+	top: auto;
+	margin: auto;
+	align-items: center;
+}
 
-	.footer-2-bottom {
-		padding-left: 0;
-		padding-right: 0;
+footer .subcon {
+	position: relative;
+	top: auto;
+	margin: auto;
+	z-index: 1;
+}
+
+footer .email {
+	position: absolute;
+	top: auto;
+	margin: auto;
+	width: 30px;
+	height: 20px;
+	z-index: 1;
+}
+
+footer .sub {
+	padding-left: 30px;
+	padding: 0.5rem;
+	position: relative;
+	background-color: white;
+	border: white 1px solid;
+	width: auto;
+	border-radius: 1px;
+	border: 1px solid #576A7A;
+	top: auto;
+	margin: auto;
+}
+
+footer * {
+	box-sizing: border-box;
+}
+
+footer a,
+footer button2 {
+	font-size: 12px;
+}
+
+footer a.button2 {
+	text-decoration: none;
+}
+
+footer button2.button2 {
+	border: none;
+	background-color: transparent;
+	font-family: "Suez One";
+	padding: 0;
+	cursor: pointer;
+	font-style: oblique;
+}
+
+@media screen and (-ms-high-contrast: active) {
+	footer button2.button2 {
+		border: 2px solid currentcolor;
 	}
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-	.footer-wrapper {
-		padding-left: 0;
-		padding-right: 0;
-		margin-left: 0;
-		margin-right: 0;
-	}
-
-	.footer-text {
-		padding-right: 0;
-	}
-
-	.footer-area {
-		padding-left: 0;
-		padding-right: 0;
-	}
-
-	.footer-2-bottom {
-		padding-left: 0;
-		padding-right: 0;
-	}
+footer a.button2,
+footer button2.button2 {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	align-self: start;
+	position: relative;
+	top: auto;
+	margin: auto;
+	background-color: black;
+	color: #fff;
+	border-radius: 1px;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+	padding: 0.2em 0.75em;
+	min-width: 150px;
+	min-height: 35px;
+	text-align: center;
+	line-height: 1.1;
+	transition: 220ms all ease-in-out;
 }
 
-@media (max-width: 767px) {
-	.footer-text {
-		padding-right: 0;
-	}
+footer a.button2:hover,
+footer a.button2:active,
+footer button2.button2:hover,
+footer button2.button2:active {
+	background-color: black;
+}
 
-	.footer-wrapper {
-		padding-left: 0;
-		padding-right: 0;
-		margin-left: 0;
-		margin-right: 0;
-		padding-top: 0;
-	}
+footer a.button2:focus,
+footer button2.button2:focus {
+	outline-style: solid;
+	outline-color: transparent;
+	box-shadow: 0 0 0 2px black;
+}
 
-	.footer-area {
-		padding-left: 0;
-		padding-right: 0;
-	}
+footer a.button2--small,
+footer button2.button2--small {
+	font-size: 1.15rem;
+}
 
-	.footer-2-bottom {
-		padding-left: 0;
-		padding-right: 0;
-	}
+footer a.button2--block,
+footer button2.button2--block {
+	width: 100%;
 }

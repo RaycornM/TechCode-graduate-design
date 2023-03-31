@@ -233,24 +233,6 @@ body {
 	padding-bottom: 0;
 }
 
-.copyright {
-	text-align: center;
-	background-color: #16161d;
-	color: #fff;
-	padding: 15px 0;
-	margin: 0;
-	position: relative;
-	width: 100%;
-	left: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.copyright p a {
-	color: #df4243;
-}
-
 .custom-carousel {
 	width: 68%;
 	height: 325px;
