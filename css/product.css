@@ -244,3 +244,16 @@
   height: 330px;
   margin: 15px 3px 0 0;
 }
+.content-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-content {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.right-content {
+  flex: 1;
+}
