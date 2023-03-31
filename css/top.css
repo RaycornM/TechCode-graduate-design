@@ -86,12 +86,7 @@ body.header-sticky .edison-header {
 	line-height: normal;
 }
 
-@media only screen and (min-width: 1025px) .edison-header .header-inner-wrap .logo,
-.edison-header .header-inner-wrap .nav-wrap,
-.edison-header .header-inner-wrap .site-utils {
-	display: block;
-	vertical-align: middle;
-}
+
 
 .edison-header .nav-wrap {
 	overflow: hidden;
