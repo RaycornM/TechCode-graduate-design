@@ -218,3 +218,22 @@ button:hover {
 		z-index: 5;
 	}
 }
+
+.copyright {
+	text-align: center;
+	background-color: #16161d;
+	color: #fff;
+	padding: 15px 0;
+	margin: 0;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.copyright p a {
+	color: #df4243;
+}
