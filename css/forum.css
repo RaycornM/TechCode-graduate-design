@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F3F3F3;
+    padding: 0;
+    margin: 0;
+  }
+
+  header {
+    background-color: #242525;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+    font-family: 'SmileySans-Oblique';
+  }
+
+  #search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  #search {
+    width: 60%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 1px solid #CCCCCC;
+  }
+
+  #forum-container {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .post {
+    padding: 10px 0;
+    border-bottom: 1px solid #CCCCCC;
+  }
+
+  .post:last-child {
+    border-bottom: none;
+  }
+
+  .post-title {
+    font-size: 1.5em;
+    margin: 0;
+  }
+
+  .post-info {
+    color: #999999;
+    font-size: 0.9em;
+  }
+
+  #new-post-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4A90E2;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+
+  #pagination {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  #pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+  }
+  
+  #pagination a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  #pagination a.active {
+    background-color: black;
+    color: white;
+  }
+  
+  #pagination span.disabled {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border-radius: 4px;
+    background-color: #cccccc;
+    color: white;
+    cursor: not-allowed;
+  }
+  
+  #pagination .prev,
+  #pagination .next {
+    display: inline-block;
+    font-size: 18px;
+  }
+  
+  #pagination .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
