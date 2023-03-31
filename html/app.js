@@ -34,31 +34,31 @@ app.use(express.static(path.join(__dirname, 'TechCode-graduate-design')));
 
 // 路由
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'html', 'index.html'));
 });
 
 app.get('/forum', (req, res) => {
-  res.sendFile(path.join(__dirname, 'forum.html'));
+  res.sendFile(path.join(__dirname, 'html', 'forum.html'));
 });
 
 app.get('/post', (req, res) => {
-  res.sendFile(path.join(__dirname, 'post.html'));
+  res.sendFile(path.join(__dirname, 'html', 'post.html'));
 });
 
 app.get('/compare', (req, res) => {
-  res.sendFile(path.join(__dirname, 'compare.html'));
+  res.sendFile(path.join(__dirname, 'html', 'compare.html'));
 });
 
 app.get('/evaluation', (req, res) => {
-  res.sendFile(path.join(__dirname, 'evaluation.html'));
+  res.sendFile(path.join(__dirname, 'html', 'evaluation.html'));
 });
 
 app.get('/product', (req, res) => {
-  res.sendFile(path.join(__dirname, 'product.html'));
+  res.sendFile(path.join(__dirname, 'html', 'product.html'));
 });
 
 app.get('/login_register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'login_register.html'));
+  res.sendFile(path.join(__dirname, 'html', 'login_register.html'));
 });
 
 // 模拟API
