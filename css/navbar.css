@@ -1,128 +1,168 @@
-.edison-header {
-	-webkit-transition: padding 0.3s ease;
-	-o-transition: padding 0.3s ease;
-	transition: padding 0.3s ease;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 15;
-	width: 100%;
-	background: #ffffff;
-	padding: 5px 0;
-  }
-  
-  .container {
-	max-width: 1500px;
-	padding: 0 15px;
-	margin: 0 auto;
+@charset "UTF-8";
+
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+		/*初始状态 透明度为0*/
+	}
+
+	50% {
+		opacity: 0;
+		/*中间状态 透明度为0*/
+	}
+
+	100% {
+		opacity: 1;
+		/*结尾状态 透明度为1*/
+	}
+}
+
+* {
 	box-sizing: border-box;
-  }
-  
-  .header-inner-wrap {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	transition: opacity 0.6s ease-in 0.3s;
-	height: 100%;
-	opacity: 1;
-  }
-  
-  .logo {
+}
+
+.dropdown__title {
+	background-color: transparent;
+	border: none;
+	font-size: 15px;
+	font-family: "Kozuka Gothic Pro EL";
+}
+
+
+.edison-header {
+  -webkit-transition: padding 0.3s ease;
+  -o-transition: padding 0.3s ease;
+  transition: padding 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: 100%;
+  background: #ffffff;
+  padding: 5px 0;
+}
+
+.container {
+  max-width: 1500px;
+  padding: 0 15px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.edison-header .header-inner-wrap .logo,
+.edison-header .header-inner-wrap .nav-wrap,
+.edison-header .header-inner-wrap .site-utils {
 	display: block;
 	vertical-align: middle;
-  }
-  
-  .wsite-logo {
+}
+
+.edison-header .wsite-logo {
 	position: relative;
 	z-index: 1;
 	overflow: hidden;
 	padding-right: 15px;
 	display: inline-block;
 	vertical-align: top;
-  }
-  
-  .wsite-logo a {
-	font-family: 'Josefin Sans', sans-serif;
-	font-weight: 700;
-	display: inline-block;
-	max-width: 500px;
-	color: #16161d;
-	font-size: 16px;
-	text-transform: uppercase;
-	text-decoration: none;
-	line-height: normal;
-  }
-  
-  #wsite-title {
-	display: inline;
-  }
-  
-  .edison-header .header-inner-wrap {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	transition: opacity 0.6s ease-in 0.3s;
-	height: 100%;
-	opacity: 1;
-  }
-  
-  .edison-header .header-inner-wrap .nav-wrap {
-	display: block;
-	vertical-align: middle;
-  }
-  
-  .desktop-nav li {
-	display: inline-block;
-	padding: 0 5px;
-  }
-  
-  .desktop-nav a:hover,
-  .desktop-nav a:focus {
-	cursor: pointer;
-	border-top-color: #001F3F;
-	color: #001F3F;
-	outline: none;
-  }
-  
-  .wsite-menu-default {
-	font-family: 'Karla', sans-serif;
-	text-align: center;
-	font-size: 16px;
-  }
-  
-  .wsite-menu-item,
-  .wsite-menu-subitem {
-	-webkit-transition: color 300ms ease;
-	-o-transition: color 300ms ease;
-	transition: color 300ms ease;
-	display: block;
-	color: #a4a4a4;
-	font-family: 'SmileySans-Oblique';
-	text-decoration: none;
-  }
-  
-  .desktop-nav .wsite-menu-wrap {
-	display: none;
-	position: absolute;
-	width: 100%;
-	left: 0;
+}
+
+.edison-header .wsite-logo a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  display: inline-block;
+  max-width: 500px;
+  color: #16161d;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: normal;
+}
+
+#wsite-title {
+  display: inline;
+}
+
+.edison-header .header-inner-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  transition: opacity 0.6s ease-in 0.3s;
+  height: 100%;
+  opacity: 1;
+}
+
+.edison-header .nav-wrap {
+	overflow: hidden;
+	max-width: 80%;
+	padding: 10px 0;
 	background: #ffffff;
-  }
-  
-  .desktop-nav .wsite-menu {
-	font-family: 'Karla', sans-serif;
-	max-width: 1100px;
-	padding: 0 15px;
-	margin: 0 auto;
-	box-sizing: border-box;
-  }
-  
-  .desktop-nav .wsite-menu-item {
-	padding: 5px;
-  }
-  
-  .has-submenu:hover .wsite-menu-wrap {
-	display: block;
-  }
+	text-align: center;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+.desktop-nav li {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.desktop-nav a:hover,
+.desktop-nav a:focus {
+  cursor: pointer;
+  border-top-color: #001F3F;
+  color: #ffffff;
+  outline: none;
+}
+
+.wsite-menu-default {
+  font-family: 'Karla', sans-serif;
+  text-align: center;
+  font-size: 16px;
+}
+
+.wsite-menu-item,
+.wsite-menu-subitem {
+  -webkit-transition: color 300ms ease;
+  -o-transition: color 300ms ease;
+  transition: color 300ms ease;
+  display: block;
+  color: #a4a4a4;
+  font-family: 'SmileySans-Oblique';
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.wsite-menu-subitem {
+  color: #999;
+}
+
+.wsite-menu-subitem:hover {
+  color: #fff;
+}
+
+.desktop-nav .wsite-menu-wrap {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.desktop-nav .wsite-menu {
+  font-family: 'Karla', sans-serif;
+  max-width: 1100px;
+  padding: 0 15px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.desktop-nav .wsite-menu-item {
+  padding: 5px;
+}
+
+.has-submenu:hover .wsite-menu-wrap {
+  display: block;
+}
