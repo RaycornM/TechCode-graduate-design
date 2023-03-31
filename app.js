@@ -2,9 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
+const cors = require('cors');
+const dayjs = require('dayjs');
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
@@ -22,12 +25,6 @@ db.connect((err) => {
   }
   console.log('MySQL connected...');
 });
-
-// const posts = [
-//   { title: '帖子标题1', author: '用户名1', date: '2023-03-30' },
-//   { title: '帖子标题2', author: '用户名2', date: '2023-03-29' },
-//   { title: '帖子标题3', author: '用户名3', date: '2023-03-28' },
-// ];
 
 // 静态文件服务
 app.use(express.static(path.join(__dirname, 'TechCode-graduate-design')));
@@ -69,17 +66,38 @@ app.post('/api/new-post', (req, res) => {
 });
 
 app.get('/api/posts', (req, res) => {
-  db.query('SELECT * FROM posts', (error, results) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const offset = (page - 1) * limit;
+
+  db.query('SELECT COUNT(*) as totalPosts FROM posts', (error, results) => {
     if (error) {
       console.error('查询数据库时发生错误:', error);
       res.status(500).json({ message: '服务器错误' });
     } else {
-      console.log('查询结果:', results);
-      res.json({ posts: results, totalPages: 1 });
+      const totalPosts = results[0].totalPosts;
+      const totalPages = Math.ceil(totalPosts / limit);
+
+      db.query('SELECT * FROM posts LIMIT ? OFFSET ?', [limit, offset], (error, results) => {
+        if (error) {
+          console.error('查询数据库时发生错误:', error);
+          res.status(500).json({ message: '服务器错误' });
+        } else {
+          // 将查询结果中的日期转换为字符串格式
+          const formattedResults = results.map(post => {
+            return {
+              ...post,
+              created_at: post.created_at.toISOString().split('T')[0]
+            };
+          });
+
+          console.log('查询结果:', formattedResults);
+          res.json({ posts: formattedResults, totalPages });
+        }
+      });
     }
   });
 });
-
 
 app.get('/api/posts/:id', (req, res) => {
   const postId = req.params.id;
@@ -148,8 +166,6 @@ app.get('/api/products/:id', (req, res) => {
     res.json(results[0]);
   });
 });
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
