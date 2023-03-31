@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>电子产品比较</title>
+  <link rel="stylesheet" href="../css/copyright.css" />
+  <link rel="stylesheet" href="../css/top1.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/foot.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../highlight/styles/railscasts.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.0.0/css/jquery.emojipicker.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/navbar.css" />
+
   <style>
     body {
       background-color: #f0f0f0;
     }
+
     .container {
       background-color: #ffffff;
       padding: 30px;
@@ -18,10 +31,9 @@
     }
   </style>
 </head>
+
 <body>
   <div class="edison-header">
-    <div class="left-bg-text">TechCode</div>
-    <div class="right-bg-text">TechCode</div>
     <div class="container">
       <div class="header-inner-wrap">
         <div class="logo">
@@ -91,8 +103,11 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="wsite-spacer" style="height:140px;"></div>
+  <header class="bg-default text-black text-center py-2 mb-4" style="font-family: 'SmileySans-Oblique';">
     <h1>电子产品比较</h1>
+  </header>
+  <div class="container">
     <div class="form-row">
       <div class="col">
         <select class="form-control" id="product-select-1">
@@ -178,40 +193,41 @@
   <script>
     // JavaScript code for getting data and displaying product details
     function loadProducts() {
-  $.get('/api/products', function (products) {
-    products.forEach((product) => {
-      const option = `<option value="${product.id}">${product.brand} ${product.model} (${product.type})</option>`;
-      $('#product-select-1, #product-select-2, #product-select-3').append(option);
-    });
-  });
-}
+      $.get('/api/products', function (products) {
+        products.forEach((product) => {
+          const option = `<option value="${product.id}">${product.brand} ${product.model} (${product.type})</option>`;
+          $('#product-select-1, #product-select-2, #product-select-3').append(option);
+        });
+      });
+    }
 
-function loadProductDetails(productSelect, productDetails) {
-  const productId = $(productSelect).val();
-  if (productId) {
-    $.get(`/api/products/${productId}`, function (product) {
-      const details = `
+    function loadProductDetails(productSelect, productDetails) {
+      const productId = $(productSelect).val();
+      if (productId) {
+        $.get(`/api/products/${productId}`, function (product) {
+          const details = `
         <h4>${product.brand} ${product.model}</h4>
         <p>类型：${product.type}</p>
         <pre>${product.parameters}</pre>
         <p>价格：${product.price} 元</p>
       `;
-      $(productDetails).html(details);
+          $(productDetails).html(details);
+        });
+      } else {
+        $(productDetails).empty();
+      }
+    }
+
+    $(document).ready(function () {
+      loadProducts();
+
+      $('#product-select-1, #product-select-2, #product-select-3').on('change', function () {
+        const productSelect = '#' + $(this).attr('id');
+        const productDetails = '#product-details-' + productSelect.charAt(productSelect.length - 1);
+        loadProductDetails(productSelect, productDetails);
+      });
     });
-  } else {
-    $(productDetails).empty();
-  }
-}
-
-$(document).ready(function () {
-  loadProducts();
-
-  $('#product-select-1, #product-select-2, #product-select-3').on('change', function () {
-    const productSelect = '#' + $(this).attr('id');
-    const productDetails = '#product-details-' + productSelect.charAt(productSelect.length - 1);
-    loadProductDetails(productSelect, productDetails);
-  });
-});
   </script>
 </body>
+
 </html>
