@@ -31,7 +31,6 @@ db.connect((err) => {
 
 // 静态文件服务
 app.use(express.static(path.join(__dirname, 'TechCode-graduate-design')));
-
 // 路由
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'html', 'index.html'));
