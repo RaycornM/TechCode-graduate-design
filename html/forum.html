@@ -282,10 +282,8 @@
 
     function loadPosts(page) {
       $.get(`/api/posts?page=${page}&limit=${postsPerPage}`, function (data) {
-        const posts = data; // 直接使用返回的数组作为帖子数据
+        const posts = data;
         console.log(data)
-        // 假设服务器返回的数组长度等于每页的帖子数，可以使用这个公式计算总页数
-        // 但这可能不是最佳方法，您可能需要根据实际情况调整
         const totalPages = Math.ceil(data.length / postsPerPage);
 
         displayPosts(posts);
