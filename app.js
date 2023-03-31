@@ -119,18 +119,35 @@ app.get('/api/comments', (req, res) => {
 app.post('/api/comments', (req, res) => {
   const { postId, author, content } = req.body;
   const newComment = { post_id: postId, author, content };
-  
-   db.query('INSERT INTO comments SET ?', newComment, (err) => {
-      if (err) {
-        res.status(500).json({ message: '服务器错误' });
-        return;
-      }
-      res.status(201).json({ message: '评论已创建' });
-    });
+
+  db.query('INSERT INTO comments SET ?', newComment, (err) => {
+    if (err) {
+      res.status(500).json({ message: '服务器错误' });
+      return;
+    }
+    res.status(201).json({ message: '评论已创建' });
   });
+});
 
 app.get('/api/products', (req, res) => {
-  // 在这里实现获取产品数据的逻辑
+  db.query('SELECT id, brand, model, type FROM products', (err, results) => {
+    if (err) {
+      res.status(500).json({ message: '服务器错误' });
+      return;
+    }
+    res.json(results);
+  });
+});
+
+app.get('/api/products/:id', (req, res) => {
+  const productId = req.params.id;
+  db.query('SELECT * FROM products WHERE id = ?', [productId], (err, results) => {
+    if (err) {
+      res.status(500).json({ message: '服务器错误' });
+      return;
+    }
+    res.json(results[0]);
+  });
 });
 
 

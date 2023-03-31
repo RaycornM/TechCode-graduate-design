@@ -2,74 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>产品对比</title>
+  <title>电子产品比较</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <style>
-    .product-info {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin: 10px;
-      display: inline-block;
-      width: calc(33% - 20px);
-      box-sizing: border-box;
+    body {
+      background-color: #f0f0f0;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      width: 66.66%;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body>
-  <select id="product-select-1" class="product-select"></select>
-  <select id="product-select-2" class="product-select"></select>
-  <select id="product-select-3" class="product-select"></select>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">电子产品比较</a>
+    <!-- Add other navigation items here -->
+  </nav>
 
-  <div id="product-info-1" class="product-info" style="display: none;"></div>
-  <div id="product-info-2" class="product-info" style="display: none;"></div>
-  <div id="product-info-3" class="product-info" style="display: none;"></div>
+  <div class="container">
+    <h1>电子产品比较</h1>
+    <div class="form-row">
+      <div class="col">
+        <select class="form-control" id="product-select-1">
+          <!-- Product options will be added here -->
+        </select>
+      </div>
+      <div class="col">
+        <select class="form-control" id="product-select-2">
+          <!-- Product options will be added here -->
+        </select>
+      </div>
+      <div class="col">
+        <select class="form-control" id="product-select-3">
+          <!-- Product options will be added here -->
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col" id="product-details-1">
+        <!-- Product 1 details will be displayed here -->
+      </div>
+      <div class="col" id="product-details-2">
+        <!-- Product 2 details will be displayed here -->
+      </div>
+      <div class="col" id="product-details-3">
+        <!-- Product 3 details will be displayed here -->
+      </div>
+    </div>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <script>
-    $(document).ready(function () {
-      loadProducts();
-
-      $('.product-select').on('change', function () {
-        const productId = $(this).val();
-        const productInfoId = $(this).attr('id').replace('select', 'info');
-        loadProductInfo(productId, productInfoId);
-      });
-    });
-
+    // JavaScript code for getting data and displaying product details
     function loadProducts() {
-      $.get('/api/products', function (products) {
-        products.forEach((product) => {
-          const option = `<option value="${product.id}">${product.brand} ${product.model}</option>`;
-          $('.product-select').append(option);
-        });
-      });
-    }
+  $.get('/api/products', function (products) {
+    products.forEach((product) => {
+      const option = `<option value="${product.id}">${product.brand} ${product.model} (${product.type})</option>`;
+      $('#product-select-1, #product-select-2, #product-select-3').append(option);
+    });
+  });
+}
 
-    function loadProductInfo(productId, productInfoId) {
-      if (productId) {
-        $.get(`/api/products/${productId}`, function (product) {
-          const productInfo = `
-            <h3>${product.brand} ${product.model}</h3>
-            <dl>
-              <dt>参数1：</dt>
-              <dd>${product.parameter1}</dd>
-              <dt>参数2：</dt>
-              <dd>${product.parameter2}</dd>
-              <dt>参数3：</dt>
-              <dd>${product.parameter3}</dd>
-              <dt>参数4：</dt>
-              <dd>${product.parameter4}</dd>
-              <dt>参数5：</dt>
-              <dd>${product.parameter5}</dd>
-            </dl>
-          `;
-          $(`#${productInfoId}`).html(productInfo).show();
-        });
-      } else {
-        $(`#${productInfoId}`).html('').hide();
-      }
-    }
+function loadProductDetails(productSelect, productDetails) {
+  const productId = $(productSelect).val();
+  if (productId) {
+    $.get(`/api/products/${productId}`, function (product) {
+      const details = `
+        <h4>${product.brand} ${product.model}</h4>
+        <p>类型：${product.type}</p>
+        <pre>${product.parameters}</pre>
+        <p>价格：${product.price} 元</p>
+      `;
+      $(productDetails).html(details);
+    });
+  } else {
+    $(productDetails).empty();
+  }
+}
+
+$(document).ready(function () {
+  loadProducts();
+
+  $('#product-select-1, #product-select-2, #product-select-3').on('change', function () {
+    const productSelect = '#' + $(this).attr('id');
+    const productDetails = '#product-details-' + productSelect.charAt(productSelect.length - 1);
+    loadProductDetails(productSelect, productDetails);
+  });
+});
   </script>
 </body>
 </html>
