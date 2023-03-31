@@ -1,3 +1,63 @@
+.edison-header {
+	-webkit-transition: padding 0.3s ease;
+	-o-transition: padding 0.3s ease;
+	transition: padding 0.3s ease;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 15;
+	width: 100%;
+	background: #ffffff;
+	padding: 5px 0; /* 将上下内边距减小为10px */
+}
+
+.container {
+	max-width: 1500px;
+	padding: 0 15px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.header-inner-wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	transition: opacity 0.6s ease-in 0.3s;
+	height: 100%;
+	opacity: 1;
+}
+
+.logo {
+	display: block;
+	vertical-align: middle;
+}
+
+.wsite-logo {
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+	padding-right: 15px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.wsite-logo a {
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: 700;
+	display: inline-block;
+	max-width: 500px;
+	color: #16161d;
+	font-size: 16px;
+	text-transform: uppercase;
+	text-decoration: none;
+	line-height: normal;
+}
+
+#wsite-title {
+	display: inline;
+}
+
 .edison-header .header-inner-wrap {
 	display: flex;
 	justify-content: space-between;
