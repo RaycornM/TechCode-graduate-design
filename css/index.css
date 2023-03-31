@@ -10,3 +10,73 @@
   -o-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.left-bg-text,
+.right-bg-text {
+	position: fixed;
+	top: 20%;
+	font-size: 7rem;
+	font-weight: bold;
+	color: #3f3f3f;
+	white-space: nowrap;
+	writing-mode: vertical-lr;
+	font-family: 'Josefin Sans', sans-serif;
+	opacity: 0;
+	/* 设置初始透明度为 0 */
+	animation-duration: 1s;
+	/* 动画持续时间 */
+	animation-timing-function: ease;
+	/* 动画速度曲线 */
+	animation-fill-mode: forwards;
+	/* 保持动画结束时的状态 */
+}
+
+.left-bg-text {
+	left: 1rem;
+	transform: translateY(-50%) rotate(180deg) translateX(-100%);
+	text-orientation: mixed;
+	animation-name: fadeInLeft;
+	/* 设置动画名称 */
+}
+
+.right-bg-text {
+	right: 1rem;
+	transform: translateY(-50%) translateX(100%);
+	text-orientation: mixed;
+	animation-name: fadeInRight;
+	/* 设置动画名称 */
+
+}
+
+/* 定义 fadeInLeft 动画 */
+@keyframes fadeInLeft {
+	0% {
+		opacity: 0;
+		transform: translateY(-50%) rotate(180deg) translateX(-100%);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(-50%) rotate(180deg);
+	}
+}
+
+/* 定义 fadeInRight 动画 */
+@keyframes fadeInRight {
+	0% {
+		opacity: 0;
+		transform: translateY(-50%) translateX(100%);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(-50%);
+	}
+}
+
+@media only screen and (min-width: 1025px) {.edison-header .header-inner-wrap .logo,
+.edison-header .header-inner-wrap .nav-wrap,
+.edison-header .header-inner-wrap .site-utils {
+	display: block;
+	vertical-align: middle;
+}}
