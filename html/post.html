@@ -126,11 +126,9 @@
           </div>
 
           <div class="sidebar">
-            <h3>文章导航</h3>
-            <ul>
-              <li><a href="#">文章标题1</a></li>
-              <li><a href="#">文章标题2</a></li>
-              <li><a href="#">文章标题3</a></li>
+            <h3>最新文章</h3>
+            <ul class="latest-posts">
+              <!-- 最新文章将在这里动态添加 -->
             </ul>
           </div>
         </div>
@@ -191,6 +189,7 @@
       $(document).ready(function () {
         loadPost(postId);
         loadComments(postId);
+        loadLatestPosts();
 
         $('#comment-text').emojipicker({
           button: '.emoji-picker-btn'
@@ -250,6 +249,21 @@
           $('#parent-comment-id').val('');
           loadComments(postId);
         });
+      }
+
+      function loadLatestPosts() {
+        $.get('/api/latest-posts', function (posts) {
+          console.log(posts); // 添加这行来检查 API 返回的数据
+          displayLatestPosts(posts);
+        });
+      }
+
+      function displayLatestPosts(posts) {
+        let html = '';
+        posts.forEach((post) => {
+          html += `<li><a href="/post?id=${post.id}">${post.title}</a></li>`;
+        });
+        $('.sidebar ul').html(html);
       }
 
       function getPostIdFromUrl() {

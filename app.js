@@ -155,6 +155,17 @@ app.post('/api/comments', (req, res) => {
   });
 });
 
+app.get('/api/latest-posts', (req, res) => {
+  db.query('SELECT * FROM posts ORDER BY created_at DESC LIMIT 3', (error, results) => {
+    if (error) {
+      console.error('查询数据库时发生错误:', error);
+      res.status(500).json({ message: '服务器错误' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.get('/api/products', (req, res) => {
   db.query('SELECT id, brand, model, type FROM products', (err, results) => {
     if (err) {
