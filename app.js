@@ -4,6 +4,8 @@ const path = require('path');
 const mysql = require('mysql2');
 const cors = require('cors');
 const dayjs = require('dayjs');
+const session = require('express-session');
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -11,6 +13,13 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
+
+app.use(session({
+  secret: 'dym114514',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
+}));
 
 const db = mysql.createConnection({
   host: 'localhost',
@@ -165,6 +174,61 @@ app.get('/api/products/:id', (req, res) => {
     }
     res.json(results[0]);
   });
+});
+
+// User注册路由
+app.post('/api/register', async (req, res) => {
+  const { username, email, password } = req.body;
+
+  // 使用bcrypt对密码进行加密
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword], (err, results) => {
+    if (err) {
+      res.status(500).json({ message: '服务器错误' });
+      return;
+    }
+    res.json({ message: '注册成功' });
+  });
+});
+
+// User login route
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body;
+
+  db.query('SELECT id, username, password FROM users WHERE email = ?', [email], async (err, results) => {
+    if (err) {
+      res.status(500).json({ message: '服务器错误' });
+      return;
+    }
+    if (results.length === 0) {
+      res.status(401).json({ message: '邮箱或密码错误' });
+      return;
+    }
+
+    const user = results[0];
+
+    // 使用bcrypt对密码进行验证
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (passwordMatch) {
+      // User authenticated successfully, create a session
+      req.session.userId = user.id;
+      req.session.username = user.username;
+      res.json({ message: '登录成功', redirectTo: '/forum' });
+    } else {
+      res.status(401).json({ message: '邮箱或密码错误' });
+    }
+  });
+});
+
+app.get('/forum', (req, res) => {
+  if (!req.session.userId) {
+    res.redirect('/login_register');
+    return;
+  }
+
+  res.sendFile(path.join(__dirname, 'html', 'forum.html'));
 });
 
 const PORT = process.env.PORT || 3000;
