@@ -180,16 +180,22 @@ app.get('/api/products/:id', (req, res) => {
 app.post('/api/register', async (req, res) => {
   const { username, email, password } = req.body;
 
-  // 使用bcrypt对密码进行加密
-  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    // 使用bcrypt对密码进行加密
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword], (err, results) => {
-    if (err) {
-      res.status(500).json({ message: '服务器错误' });
-      return;
-    }
-    res.json({ message: '注册成功' });
-  });
+    db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword], (err, results) => {
+      if (err) {
+        console.error(err); // 记录错误
+        res.status(500).json({ message: '服务器错误' });
+        return;
+      }
+      res.json({ message: '注册成功' });
+    });
+  } catch (error) {
+    console.error(error); // 记录错误
+    res.status(500).json({ message: '服务器错误' });
+  }
 });
 
 // User login route
@@ -201,16 +207,19 @@ app.post('/api/login', (req, res) => {
       res.status(500).json({ message: '服务器错误' });
       return;
     }
+    
+    console.log('查询结果：', results); // 打印查询结果
+    
     if (results.length === 0) {
       res.status(401).json({ message: '邮箱或密码错误' });
       return;
     }
-
+  
     const user = results[0];
-
+  
     // 使用bcrypt对密码进行验证
     const passwordMatch = await bcrypt.compare(password, user.password);
-
+  
     if (passwordMatch) {
       // User authenticated successfully, create a session
       req.session.userId = user.id;

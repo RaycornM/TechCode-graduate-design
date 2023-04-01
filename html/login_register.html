@@ -103,7 +103,7 @@
     <div class="containerSign__form containerSign--signin">
       <form id="login-form" class="login-form form">
         <h2>登录</h2>
-        <input type="text" placeholder="Username" class="input" name="username" />
+        <input type="text" placeholder="Email" class="input" name="email" />
         <input type="password" placeholder="Password" class="input" name="password" />
         <button class="btn">登录</button>
       </form>
@@ -156,10 +156,10 @@
       $('#login-form').on('submit', function (e) {
         e.preventDefault();
 
-        const username = $('[name="username"]').val();
-        const password = $('[name="password"]').val();
+        const email = $(this).find('input[name="email"]').val();
+        const password = $(this).find('input[name="password"]').val();
 
-        $.post('/api/login', { username, password }, function (data) {
+        $.post('/api/login', { email, password }, function (data) {
           // 登录成功，重定向到论坛页面
           if (data.redirectTo) {
             window.location.href = data.redirectTo;
