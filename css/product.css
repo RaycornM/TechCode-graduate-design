@@ -1,259 +1,177 @@
-.tag-item-0-common {
-  align-self: center;
-  font-size: 13px;
-  line-height: 13px;
-  color: #1f1f1f;
-  text-decoration: none;
-  letter-spacing: 0px;
-  white-space: nowrap;
-  lines: 1;
+body {
+  font-family: Arial, sans-serif;
 }
-.title-common {
-  align-self: flex-end;
-  color: #292829;
-  text-decoration: none;
+
+.product-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-section {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 250px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-bottom-section {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.product-status {
+  margin-bottom: 20px;
   font-family: 'SmileySans-Oblique';
-  letter-spacing: 0px;
 }
-.item-long-wrapper-item-0-common {
+
+.brands {
+  text-align: center;
+}
+
+.brand-images {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-self: center;
-  height: 678px;
-}
-.page {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 1366px;
-  height: 1095px;
-  background-color: #ffffff;
-  background-image: url(./images/img_12.png),
-    url(./images/img_13.png),
-    url(./images/img_14.png),
-    url(./images/img_15.png),
-    url(./images/img_16.png);
-  background-size: 1208px 78px, 267px 134px, 267px 137px, 186px 134px,
-    186px 137px;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position: 79px 338px, 832px 65px, 832px 200px, 1099px 65px,
-    1099px 200px;
-}
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-self: center;
-  width: 1366px;
-  height: 65px;
-  padding: 25px 12px 21px;
-  background-image: url(./images/img_0.png);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: 0px 0px;
-  background-origin: padding-box;
-}
-.tech-code {
-  align-self: center;
-  margin-left: 85px;
-  font-size: 22px;
-  line-height: 22px;
-  color: #1f1f1f;
-  text-decoration: none;
-  letter-spacing: 0px;
-  white-space: nowrap;
-  lines: 1;
-}
-.primary {
-  display: flex;
-  justify-content: flex-start;
-  align-self: center;
-  height: 19px;
-  padding: 1px 0 3px;
-  margin-right: 93px;
-}
-.tag-item-0 {
-  margin-top: 1px;
-}
-.tag-item-1 {
-  margin: 0 0 1px 29px;
-}
-.tag-item-2 {
-  margin: 1px 0 0 27px;
-}
-.tag-item-3 {
-  margin: 1px 0 0 26px;
-}
-.tag-item-4 {
-  margin: 0 0 1px 27px;
-}
-.tag-item-5 {
-  margin: 0 0 1px 25px;
-}
-.tag-item-6 {
-  margin: 1px 0 0 26px;
-}
-.container-1 {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-self: center;
-  width: 1366px;
-  padding: 0 12px 1px;
-}
-.banner {
-  align-self: flex-start;
-  width: 751px;
-  height: 272px;
-  margin-left: 69px;
-}
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-self: center;
-  width: 1204px;
-  margin-top: 24px;
-}
-.title {
-  margin: 0 0 3px 49px;
-  font-size: 28px;
-  line-height: 28px;
-  white-space: nowrap;
-  lines: 1;
-}
-.more {
-  overflow: hidden;
-  width: 55px;
-  height: 21px;
-  margin-right: 19px;
-  font-size: 20px;
-  line-height: 11px;
-  white-space: break-spaces;
-  text-overflow: ellipsis;
-  lines: 2;
-  webkit-line-clamp: 2;
-  webkit-box-orient: vertical;
-}
-.body {
-  display: flex;
-  justify-content: flex-start;
-  align-self: center;
-  width: 1204px;
-  margin-top: 24px;
-}
-.item-long-wrapper-item-0 {
-  width: 230px;
-  padding-bottom: 4px;
-}
-.label-wrapper {
-  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-self: center;
-  width: 230px;
-  height: 51px;
-  padding: 13px 12px 14px;
-  background-image: url(./images/img_2.png);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: 0px 0px;
-  background-origin: padding-box;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
-.label {
-  align-self: flex-start;
-  overflow: hidden;
-  width: 74px;
-  height: 24px;
-  font-size: 23px;
-  line-height: 12px;
-  color: #ffffff;
-  text-decoration: none;
-  letter-spacing: 0px;
-  white-space: normal;
-  text-overflow: ellipsis;
-  lines: 2;
-  webkit-line-clamp: 2;
-  webkit-box-orient: vertical;
+
+.brand-image {
+  border: 1px solid #ccc;
+  height: 40px;
+  margin: 5px;
+  width: 80px;
 }
-.item-long {
-  align-self: center;
-  width: 230px;
-  height: 623px;
+
+.brand-div {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  height: 40px;
+  margin: 5px;
+  width: 80px;
+  font-family: 'SmileySans-Oblique';
 }
-.item-long-wrapper-item-1 {
-  width: 230px;
-  margin-left: 13px;
-  padding-top: 1px;
+
+/* 品牌图片鼠标悬停效果 */
+.brand-div:hover {
+  transform: translateY(-5px);
 }
-.product-long {
-  align-self: center;
-  width: 230px;
-  height: 330px;
-}
-.item-long-1 {
-  align-self: center;
-  width: 230px;
-  height: 333px;
-  margin-top: 14px;
-}
-.item-long-wrapper-item-2 {
-  width: 230px;
-  padding-bottom: 4px;
-  margin-left: 14px;
-}
-.product-long-1 {
-  align-self: center;
-  width: 230px;
-  height: 331px;
-}
-.item-long-2 {
-  align-self: center;
-  width: 229px;
-  height: 329px;
-  margin: 14px 1px 0 0;
-}
-.item-long-wrapper-item-3 {
-  width: 232px;
-  padding-bottom: 3px;
-  margin-left: 12px;
-}
-.product-long-2 {
-  align-self: center;
-  width: 231px;
-  height: 331px;
-  margin-left: 1px;
-}
-.item-long-3 {
-  align-self: center;
-  width: 229px;
-  height: 330px;
-  margin: 14px 3px 0 0;
-}
-.item-long-wrapper-item-4 {
-  width: 232px;
-  padding-bottom: 2px;
-  margin-left: 11px;
-}
-.product-long-3 {
-  align-self: center;
-  width: 232px;
-  height: 331px;
-}
-.item-long-4 {
-  align-self: center;
-  width: 229px;
-  height: 330px;
-  margin: 15px 3px 0 0;
-}
-.content-container {
+
+.right-section {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  width: calc(100% - 290px);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
-.left-content {
-  flex: 1;
-  margin-right: 20px;
+/* 比较按钮块状布局 */
+a.compare-button {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
-.right-content {
-  flex: 1;
+/* 去除链接下划线和默认蓝色 */
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button.compare-button {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* 按钮样式 */
+button.compare-button,
+button.status-button {
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: #242525;
+  color: #fff;
+  font-family: 'SmileySans-Oblique';
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* 按钮鼠标悬停效果 */
+button.compare-button:hover,
+button.status-button:hover {
+  background-color: #4d4f50;
+}
+
+/* 按钮间距调整 */
+button.status-button {
+  margin-right: 10px;
+}
+
+/* 品牌图片鼠标悬停效果 */
+.brand-image:hover {
+  transform: translateY(-5px);
+}
+
+.sidebar {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 48%; /* 可根据需要调整产品卡片的宽度 */
+}
+
+.product {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: calc(33.333% - 20px);
+  transition: transform 0.3s ease; /* 添加过渡动画 */
+}
+
+.product:hover {
+  transform: scale(1.1); /* 鼠标悬停时放大 1.1 倍 */
+}
+
+.product-image {
+  height: 100px;
+  width: 100px;
+}
+
+.product-name {
+  font-weight: bold;
+  color: rgb(29, 28, 28);
+  font-size: medium;
+  margin: 0 10px;
+}
+
+.product-description {
+  font-weight: bold;
+  font-size:smaller;
+  color: rgb(134, 129, 129);
+  margin: 0 10px;
+}
+
+
+.product-price {
+  color: #f00;
 }
