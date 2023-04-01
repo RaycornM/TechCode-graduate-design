@@ -1,0 +1,22 @@
+body {
+    background-color: #ffffff;
+}
+
+.main-content {
+    margin-top: 200px;
+    /* 根据导航栏的实际高度调整这个值 */
+    background-color: #e4e4e4;
+    padding: 30px;
+    width: 66.66%;
+    height: 24rem;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #242525;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+    font-family: 'SmileySans-Oblique';
+}
