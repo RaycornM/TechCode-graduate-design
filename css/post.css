@@ -52,3 +52,14 @@ header {
     width: 100%;
     resize: none;
 }
+
+.reply-button {
+  border-radius: 5px;
+    padding: 10px 20px;
+    background-color: #242525;
+    color: #fff;
+    font-family: 'SmileySans-Oblique';
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

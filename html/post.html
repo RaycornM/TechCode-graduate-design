@@ -121,7 +121,7 @@
                       class="fa fa-smile-o"></i></button>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary mt-2">发表评论</button>
+              <button type="submit" class="btn btn-default mt-2" style="background-color: rgb(34, 33, 33); color: rgb(246, 247, 248);font-family: 'SmileySans-Oblique';">发表评论</button>
             </form>
           </div>
 
@@ -217,6 +217,7 @@
         $.get(`/api/posts/${postId}`, function (post) {
           const html = `
           <h2>${post.title}</h2>
+          <p class="post-info">作者：${post.author} | 发布日期：${post.date}</p>
           <p>${post.content}</p>
         `;
           $('#post-content').html(html);
