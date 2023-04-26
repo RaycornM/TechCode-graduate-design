@@ -19,8 +19,8 @@ header {
 }
 
 .product-image {
-    width: 300px;
-    height: 300px;
+    width: 602px;
+    height: 352px;
     object-fit: cover;
     border: 1px solid #ccc;
 }
@@ -36,16 +36,14 @@ header {
 }
 
 .comparison-button {
-    background-color: #007BFF;
-    border: none;
-    color: white;
-    font-size: 18px;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 20px 0;
-    cursor: pointer;
+    border-radius: 5px;
+      padding: 10px 20px;
+      background-color: #242525;
+      color: #fff;
+      font-family: 'SmileySans-Oblique';
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
 }
 
 .rating {
@@ -117,4 +115,15 @@ header {
   
   input[name="rate"]:hover {
     transform: scale(1.2);
+  }
+
+  .post-button {
+    border-radius: 5px;
+      padding: 10px 20px;
+      background-color: #242525;
+      color: #fff;
+      font-family: 'SmileySans-Oblique';
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
   }
