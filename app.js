@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
 const cors = require('cors');
-const dayjs = require('dayjs');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 
@@ -62,12 +61,15 @@ app.get('/product', (req, res) => {
   res.sendFile(path.join(__dirname, 'html', 'product.html'));
 });
 
+app.get('/productInfo', (req, res) => {
+  res.sendFile(path.join(__dirname, 'html', 'productInfo.html'));
+});
+
 app.get('/login_register', (req, res) => {
   res.sendFile(path.join(__dirname, 'html', 'login_register.html'));
 });
 
 // 模拟API
-
 app.post('/api/new-post', (req, res) => {
   const { title, author, date } = req.body;
   posts.unshift({ title, author, date });
