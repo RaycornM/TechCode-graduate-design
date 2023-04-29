@@ -93,21 +93,53 @@
         </header>
         <div class="product-container">
             <img src="/img/nvidia_geforce_rtx_3080_angle_1598979564701.jpg" alt="Product Image" class="product-image">
+            <div class="left-bg-text">TechCode</div>
+            <div class="right-bg-text">TechCode</div>
             <h2 class="product-title">GeForce RTX 3080</h2>
-            <p class="product-parameters">类别: 显卡</p>
-            <p class="product-parameters">品牌: NVIDIA</p>
-            <p class="product-parameters">型号: RTX 3080</p>
-            <p class="product-parameters">参考价格：￥5499</p>
-            <p class="product-parameters">发布日期 January 11, 2022</p>
-            <p class="product-parameters">核心数：8704</p>
-            <p class="product-parameters">显存：10GB</p>
-            <p class="product-parameters">GDDR6X接口：PCIe 4.0 x16</p>
-            <p class="rating">评分: 4.5/5 stars</p>
+            <table>
+                <tr>
+                    <th>类别</th>
+                    <td>显卡</td>
+                </tr>
+                <tr>
+                    <th>品牌</th>
+                    <td>NVIDIA</td>
+                </tr>
+                <tr>
+                    <th>型号</th>
+                    <td>RTX 3080</td>
+                </tr>
+                <tr>
+                    <th>参考价格</th>
+                    <td>￥5499</td>
+                </tr>
+                <tr>
+                    <th>发布日期</th>
+                    <td>January 11, 2022</td>
+                </tr>
+                <tr>
+                    <th>核心数</th>
+                    <td>8704</td>
+                </tr>
+                <tr>
+                    <th>显存</th>
+                    <td>10GB</td>
+                </tr>
+                <tr>
+                    <th>GDDR6X接口</th>
+                    <td>PCIe 4.0 x16</td>
+                </tr>
+                <tr>
+                    <th>评分</th>
+                    <td>4.5/5 stars</td>
+                </tr>
+            </table>
             <a href="https://www.bilibili.com/video/BV1oV41127q5/?share_source=copy_web&vd_source=d964b80c7192e3503dbcdc4bc2c41a81"
                 class="review-link"><button class="comparison-button">查看测评</button></a>
             <button class="comparison-button" onclick="location.href='/compare'">产品对比</button>
             <div id="commentsSection">
                 <h2>用户评论</h2>
+                <div class="comment-list"></div>
             </div>
             <div class="user-ratings">
                 <h3>打个分吧！</h3>
@@ -127,7 +159,7 @@
                 </div>
                 <button class="post-button" id="submitRating" type="button">提交</button>
             </div>
-      <div class="wsite-spacer" style="height:40px;"></div>
+            <div class="wsite-spacer" style="height:40px;"></div>
             <footer>
                 <div class="footcontent">
                     <div class="footer-wrapper">
@@ -184,37 +216,49 @@
 
             const existingComments = [
                 {
+                    userName: 'user3',
                     rating: 4.5,
                     comment: '特别好的一张卡! 我太喜欢它了!'
                 },
                 {
+                    userName: 'user1',
                     rating: 3,
                     comment: '还行吧，但是性能没达到我的预期。'
                 }
             ];
 
-            // Display existing comments and ratings
+            const commentList = document.querySelector('.comment-list');
+
             function displayComments() {
                 existingComments.forEach((commentData) => {
                     const commentDiv = document.createElement('div');
+                    const userNameP = document.createElement('p');
                     const ratingSpan = document.createElement('span');
                     const commentP = document.createElement('p');
 
+                    userNameP.className = 'user-name';
+                    userNameP.textContent = commentData.userName;
+                    ratingSpan.className = 'rating';
                     ratingSpan.textContent = `评分: ${commentData.rating}`;
+                    commentP.className = 'comment';
                     commentP.textContent = commentData.comment;
 
+                    commentDiv.className = 'comment-container';
+                    commentDiv.appendChild(userNameP);
                     commentDiv.appendChild(ratingSpan);
                     commentDiv.appendChild(commentP);
-                    commentsSection.appendChild(commentDiv);
+                    commentList.appendChild(commentDiv);
                 });
             }
 
+
             // Handle the submission of user ratings and comments
             function handleSubmitRating() {
-                const rating = parseFloat(document.querySelector('input[name="rating"]:checked').value);
+                const userName = document.getElementById('userName').value;
+                const rating = parseFloat(document.querySelector('input[name="rate"]:checked').value);
                 const comment = document.getElementById('userComment').value;
 
-                existingComments.push({ rating, comment });
+                existingComments.push({ userName, rating, comment });
                 commentsSection.innerHTML = '<h3>User Ratings and Reviews:</h3>';
                 displayComments();
             }
