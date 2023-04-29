@@ -12,14 +12,14 @@
   <link rel="stylesheet" href="../css/navbar.css" />
   <link rel="stylesheet" href="../css/foot.css" />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,700&display=swap" rel="stylesheet">
-  <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../highlight/styles/railscasts.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.0.0/css/jquery.emojipicker.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.0.0/jquery.emojipicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
@@ -111,17 +111,32 @@
             <div id="comments">
               <!-- 评论内容在这里显示 -->
             </div>
+            <!-- 添加回复表单 -->
+            <div id="reply-form-container" style="display: none;">
+              <h4>回复评论</h4>
+              <form id="reply-form">
+                <input type="hidden" id="parent-comment-id" value="">
+                <div class="input-group">
+                  <textarea class="comment-text form-control" id="comment-text" placeholder="写下你的回复..."></textarea>
+                  <div class="input-group-append">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-default mt-2"
+                  style="background-color: rgb(34, 33, 33); color: rgb(246, 247, 248);font-family: 'SmileySans-Oblique';">发表回复</button>
+                <button type="button" id="cancel-reply" class="btn btn-default mt-2"
+                  style="background-color: rgb(34, 33, 33); color: rgb(246, 247, 248);font-family: 'SmileySans-Oblique';">取消</button>
+              </form>
+            </div>
             <div class="wsite-spacer" style="height:20px;"></div>
             <form id="comment-form">
               <input type="hidden" id="parent-comment-id" value="">
               <div class="input-group">
-                <textarea class="comment-input form-control" id="comment-text" placeholder="写下你的评论..."></textarea>
+                <textarea class="comment-text form-control" id="comment-text" placeholder="写下你的评论..."></textarea>
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-outline-secondary emoji-picker-btn"><i
-                      class="fa fa-smile-o"></i></button>
                 </div>
               </div>
-              <button type="submit" class="btn btn-default mt-2" style="background-color: rgb(34, 33, 33); color: rgb(246, 247, 248);font-family: 'SmileySans-Oblique';">发表评论</button>
+              <button type="submit" class="btn btn-default mt-2"
+                style="background-color: rgb(34, 33, 33); color: rgb(246, 247, 248);font-family: 'SmileySans-Oblique';">发表评论</button>
             </form>
           </div>
 
@@ -191,8 +206,8 @@
         loadComments(postId);
         loadLatestPosts();
 
-        $('#comment-text').emojipicker({
-          button: '.emoji-picker-btn'
+        $('#comment-text').emojioneArea({
+          pickerPosition: 'bottom'
         });
 
         $('#comment-form').on('submit', function (e) {
@@ -204,7 +219,29 @@
 
         $('#comments').on('click', '.reply-button', function () {
           const parentCommentId = $(this).data('id');
+          const $repliesContainer = $(this).siblings('.replies');
+
+          // 隐藏其他回复表单
+          $('.replies #reply-form-container').not($repliesContainer).hide();
+
+          // 设置回复表单的parentCommentId
           $('#parent-comment-id').val(parentCommentId);
+
+          // 将回复表单添加到点击的评论下方
+          $repliesContainer.append($('#reply-form-container'));
+          $('#reply-form-container').show();
+        });
+
+        $('#cancel-reply').on('click', function () {
+          $('#parent-comment-id').val('');
+          $('#reply-form-container').hide(); // 隐藏回复表单
+        });
+
+        $('#reply-form').on('submit', function (e) {
+          e.preventDefault();
+          const text = $('#reply-text').val();
+          const parentCommentId = $('#parent-comment-id').val();
+          submitReply(postId, text, parentCommentId);
         });
       });
 
@@ -214,7 +251,7 @@
       }
 
       function loadPost(postId) {
-        $.get(`/api/posts/${postId}`, function (post) {
+        $.get(`/api/posts/${postId}/data`, function (post) {
           const html = `
           <h2>${post.title}</h2>
           <p class="post-info">作者：${post.author} | 发布日期：${post.date}</p>
@@ -226,22 +263,52 @@
 
       function loadComments(postId) {
         $.get(`/api/posts/${postId}/comments`, function (comments) {
-          displayComments(comments);
+          console.log(comments);
+          const commentTree = buildCommentTree(comments);
+          displayComments(commentTree);
         });
+      }
+
+      function buildCommentTree(comments) {
+        const topLevelComments = comments.filter(c => !c.parent_comment_id);
+        const replies = comments.filter(c => c.parent_comment_id);
+
+        topLevelComments.forEach(comment => {
+          comment.replies = replies.filter(reply => reply.parent_comment_id === comment.id);
+        });
+
+        return topLevelComments;
       }
 
       function displayComments(comments) {
         let html = '';
         comments.forEach((comment) => {
           html += `
-          <div class="comment" data-id="${comment.id}">
-            <h3>${comment.author}</h3>
-            <p>${comment.content}</p>
-            <button class="reply-button" data-id="${comment.id}">回复</button>
+    <div class="comment" data-id="${comment.id}">
+      <h3>${comment.author}</h3>
+      <p>${comment.content}</p>
+      <button class="reply-button" data-id="${comment.id}">回复</button>
+      <div class="replies">
+        ${comment.replies.map((reply) => `
+          <div class="reply" data-id="${reply.id}">
+            <h4>${reply.author}</h4>
+            <p>${reply.content}</p>
           </div>
-        `;
+        `).join('')}
+      </div>
+    </div>`;
         });
+        console.log(html);
         $('#comments').html(html);
+      }
+
+      function submitReply(postId, text, parentCommentId) {
+        $.post('/api/comments', { postId, text, parentCommentId }, function () {
+          $('#reply-text').val('');
+          $('#parent-comment-id').val('');
+          $('#reply-form-container').hide(); // 隐藏回复表单
+          loadComments(postId);
+        });
       }
 
       function submitComment(postId, text, parentCommentId) {
@@ -267,10 +334,6 @@
         $('.sidebar ul').html(html);
       }
 
-      function getPostIdFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('id');
-      }
     </script>
   </body>
 
