@@ -110,7 +110,7 @@ app.get('/api/posts', (req, res) => {
   });
 });
 
-app.get('/api/posts/:id', (req, res) => {
+app.get('/api/posts/:id/data', (req, res) => {
   const postId = req.params.id;
   db.query('SELECT * FROM posts WHERE id = ?', [postId], (err, results) => {
     if (err) {
@@ -118,8 +118,11 @@ app.get('/api/posts/:id', (req, res) => {
       return;
     }
     res.json(results[0]);
-    res.sendFile(path.join(__dirname, 'TechCode-graduate-design', 'post.html'));
   });
+});
+
+app.get('/api/posts/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'html', 'post.html'));
 });
 
 app.get('/api/posts/:id/comments', (req, res) => {
@@ -145,11 +148,17 @@ app.get('/api/comments', (req, res) => {
 });
 
 app.post('/api/comments', (req, res) => {
-  const { postId, author, content } = req.body;
-  const newComment = { post_id: postId, author, content };
+  const { postId, author, content, parentCommentId } = req.body;
+  const newComment = { post_id: postId, author, content, parent_comment_id: parentCommentId };
+
+  // Add a debug statement to log the newComment object
+  console.log('New comment:', newComment);
 
   db.query('INSERT INTO comments SET ?', newComment, (err) => {
     if (err) {
+      // Add a debug statement to log the error
+      console.error('Error while inserting comment:', err);
+
       res.status(500).json({ message: '服务器错误' });
       return;
     }
@@ -212,7 +221,7 @@ app.post('/api/register', async (req, res) => {
 });
 
 // User login route
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
   db.query('SELECT id, username, password FROM users WHERE email = ?', [email], async (err, results) => {
@@ -220,19 +229,19 @@ app.post('/api/login', (req, res) => {
       res.status(500).json({ message: '服务器错误' });
       return;
     }
-    
+
     console.log('查询结果：', results); // 打印查询结果
-    
+
     if (results.length === 0) {
       res.status(401).json({ message: '邮箱或密码错误' });
       return;
     }
-  
+
     const user = results[0];
-  
+
     // 使用bcrypt对密码进行验证
     const passwordMatch = await bcrypt.compare(password, user.password);
-  
+
     if (passwordMatch) {
       // User authenticated successfully, create a session
       req.session.userId = user.id;
