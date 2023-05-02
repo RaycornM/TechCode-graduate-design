@@ -1,5 +1,29 @@
+/* 基本样式 */
 body {
   font-family: Arial, sans-serif;
+}
+
+/* 响应式布局断点 */
+@media screen and (max-width: 991px) {
+  .product-container {
+    flex-direction: column;
+  }
+
+  .left-section,
+  .right-section {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .product {
+    width: calc(50% - 20px);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .product {
+    width: 100%;
+  }
 }
 
 .product-container {
