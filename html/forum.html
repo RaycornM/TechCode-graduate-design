@@ -175,6 +175,11 @@
       $(document).ready(function () {
         loadPosts(currentPage);
 
+        $('#search').on('input', function () {
+          const keyword = $(this).val();
+          searchPosts(keyword);
+        });
+
         $('#pagination').on('click', 'a', function (e) {
           e.preventDefault();
           currentPage = parseInt($(this).data('page'));
@@ -196,16 +201,32 @@
         });
       });
 
+      function searchPosts(keyword) {
+        $.get(`/api/search-posts?keyword=${keyword}`, function (data) {
+          const posts = data.posts;
+          displayPosts(posts);
+        }).fail(function (xhr) {
+          alert('搜索帖子时出错，请稍后重试。');
+        });
+      }
+
       function loadPosts(page) {
         $.get(`/api/posts?page=${page}&limit=${postsPerPage}`, function (data) {
           const posts = data.posts;
-          console.log(data)
+          console.log(data);
           const totalPages = data.totalPages;
 
           displayPosts(posts);
           displayPagination(totalPages);
+        }).fail(function (xhr) {
+          if (xhr.status === 401) {
+            window.location.href = '/login_register';
+          } else {
+            alert('加载帖子时出错，请稍后重试。');
+          }
         });
       }
+
 
       function displayPosts(posts) {
         let html = '';

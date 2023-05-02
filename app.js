@@ -6,6 +6,14 @@ const cors = require('cors');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 
+function requireLogin(req, res, next) {
+  if (!req.session.userId) {
+    res.status(401).json({ message: '需要登录' });
+  } else {
+    next();
+  }
+}
+
 const app = express();
 
 app.use(cors());
@@ -253,13 +261,43 @@ app.post('/api/login', async (req, res) => {
   });
 });
 
-app.get('/forum', (req, res) => {
+app.get('/api/session', (req, res) => {
+  if (req.session.userId) {
+    res.json({ isLoggedIn: true });
+  } else {
+    res.json({ isLoggedIn: false });
+  }
+});
+
+app.get('/forum', requireLogin, (req, res) => {
   if (!req.session.userId) {
     res.redirect('/login_register');
     return;
   }
 
   res.sendFile(path.join(__dirname, 'html', 'forum.html'));
+});
+
+app.get('/api/search-posts', (req, res) => {
+  const keyword = req.query.keyword;
+  const query = "SELECT * FROM posts WHERE title LIKE ?";
+
+  db.query(query, [`%${keyword}%`], (error, results) => {
+    if (error) {
+      console.error('查询数据库时发生错误:', error);
+      res.status(500).json({ message: '服务器错误' });
+    } else {
+      // 将查询结果中的日期转换为字符串格式
+      const formattedResults = results.map(post => {
+        return {
+          ...post,
+          created_at: post.created_at.toISOString().split('T')[0]
+        };
+      });
+
+      res.json({ posts: formattedResults });
+    }
+  });
 });
 
 const PORT = process.env.PORT || 3000;
