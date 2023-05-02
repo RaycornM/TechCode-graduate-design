@@ -201,6 +201,20 @@
         });
       });
 
+      function checkLoginStatus() {
+        return new Promise((resolve, reject) => {
+          $.get('/api/session', function (data) {
+            if (data.isLoggedIn) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          }).fail(function (xhr) {
+            reject('检查登录状态时出错，请稍后重试。');
+          });
+        });
+      }
+
       function searchPosts(keyword) {
         $.get(`/api/search-posts?keyword=${keyword}`, function (data) {
           const posts = data.posts;
@@ -232,15 +246,25 @@
         let html = '';
         posts.forEach((post) => {
           html += `
-      <div class="post">
-        <h2 class="post-title">${post.title}</h2>
-        <p class="post-info">作者：${post.author} | 发布日期：${post.date}</p>
-        <a href="/post?id=${post.id}">查看详情</a>
-      </div>
-    `;
+          <div class="post">
+            <h2 class="post-title">${post.title}</h2>
+            <p class="post-info">作者：${post.author} | 发布日期：${post.date}</p>
+            <a href="/post?id=${post.id}" class="view-details">查看详情</a>
+          </div>
+          `;
         });
         $('#forum-posts').html(html);
+
+        // 给查看详情按钮添加点击事件
+        $('.view-details').on('click', async function (e) {
+          const isLoggedIn = await checkLoginStatus();
+          if (!isLoggedIn) {
+            e.preventDefault();
+            window.location.href = '/login_register';
+          }
+        });
       }
+
 
       function displayPagination(totalPages) {
         let html = '';
