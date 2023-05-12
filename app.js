@@ -77,7 +77,7 @@ app.get('/login_register', (req, res) => {
   res.sendFile(path.join(__dirname, 'html', 'login_register.html'));
 });
 
-// 模拟API
+// API
 app.post('/api/new-post', (req, res) => {
   const { title, author, date } = req.body;
   posts.unshift({ title, author, date });
@@ -97,7 +97,7 @@ app.get('/api/posts', (req, res) => {
       const totalPosts = results[0].totalPosts;
       const totalPages = Math.ceil(totalPosts / limit);
 
-      db.query('SELECT * FROM posts LIMIT ? OFFSET ?', [limit, offset], (error, results) => {
+      db.query('SELECT posts.*, users.username AS author_name FROM posts JOIN users ON posts.author_id = users.id LIMIT ? OFFSET ?', [limit, offset], (error, results) => {
         if (error) {
           console.error('查询数据库时发生错误:', error);
           res.status(500).json({ message: '服务器错误' });
@@ -106,7 +106,8 @@ app.get('/api/posts', (req, res) => {
           const formattedResults = results.map(post => {
             return {
               ...post,
-              created_at: post.created_at.toISOString().split('T')[0]
+              created_at: post.created_at.toISOString().split('T')[0],
+              author: post.author_name
             };
           });
 
@@ -118,9 +119,10 @@ app.get('/api/posts', (req, res) => {
   });
 });
 
+
 app.get('/api/posts/:id/data', (req, res) => {
   const postId = req.params.id;
-  db.query('SELECT * FROM posts WHERE id = ?', [postId], (err, results) => {
+  db.query('SELECT posts.*, users.username AS author_id FROM posts JOIN users ON posts.author_id = users.id WHERE posts.id = ?', [postId], (err, results) => {
     if (err) {
       res.status(500).json({ message: '服务器错误' });
       return;
@@ -135,7 +137,7 @@ app.get('/api/posts/:id', (req, res) => {
 
 app.get('/api/posts/:id/comments', (req, res) => {
   const postId = req.params.id;
-  const query = 'SELECT * FROM comments WHERE post_id = ? ORDER BY created_at DESC';
+  const query = 'SELECT comments.*, users.username AS author_id FROM comments JOIN users ON comments.author_id = users.id WHERE comments.post_id = ? ORDER BY comments.created_at DESC';
   db.query(query, [postId], (err, results) => {
     if (err) {
       res.status(500).json({ message: '服务器错误' });
@@ -297,6 +299,41 @@ app.get('/api/search-posts', (req, res) => {
 
       res.json({ posts: formattedResults });
     }
+  });
+});
+
+// 查询所有用户
+app.get('/users', (req, res) => {
+  db.query('SELECT * FROM users', (err, results) => {
+    if (err) throw err;
+    res.render('users', { users: results });
+  });
+});
+
+// 删除用户
+app.get('/users/:id/delete', (req, res) => {
+  const id = req.params.id;
+  db.query('DELETE FROM users WHERE id = ?', [id], (err, result) => {
+    if (err) throw err;
+    res.redirect('/users');
+  });
+});
+
+// 修改用户信息
+app.get('/users/:id/edit', (req, res) => {
+  const id = req.params.id;
+  db.query('SELECT * FROM users WHERE id = ?', [id], (err, result) => {
+    if (err) throw err;
+    res.render('editUser', { user: result[0] });
+  });
+});
+
+app.post('/users/:id/edit', (req, res) => {
+  const id = req.params.id;
+  const { username, email, password } = req.body;
+  db.query('UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?', [username, email, password, id], (err, result) => {
+    if (err) throw err;
+    res.redirect('/users');
   });
 });
 

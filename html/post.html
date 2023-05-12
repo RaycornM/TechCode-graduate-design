@@ -253,10 +253,10 @@
       function loadPost(postId) {
         $.get(`/api/posts/${postId}/data`, function (post) {
           const html = `
-          <h2>${post.title}</h2>
-          <p class="post-info">作者：${post.author} | 发布日期：${post.date}</p>
-          <p>${post.content}</p>
-        `;
+            <h2>${post.title}</h2>
+            <p class="post-info">作者：${post.author_id} | 发布日期：${post.created_at}</p>
+            <p>${post.content}</p>
+          `;
           $('#post-content').html(html);
         });
       }
@@ -284,19 +284,19 @@
         let html = '';
         comments.forEach((comment) => {
           html += `
-    <div class="comment" data-id="${comment.id}">
-      <h3>${comment.author}</h3>
-      <p>${comment.content}</p>
-      <button class="reply-button" data-id="${comment.id}">回复</button>
-      <div class="replies">
-        ${comment.replies.map((reply) => `
-          <div class="reply" data-id="${reply.id}">
-            <h4>${reply.author}</h4>
-            <p>${reply.content}</p>
-          </div>
-        `).join('')}
-      </div>
-    </div>`;
+            <div class="comment" data-id="${comment.id}">
+              <h3>${comment.author_id}</h3>
+              <p>${comment.content}</p>
+              <button class="reply-button" data-id="${comment.id}">回复</button>
+              <div class="replies">
+                ${comment.replies.map((reply) => `
+                  <div class="reply" data-id="${reply.id}">
+                    <h4>${reply.author_id}</h4>
+                    <p>${reply.content}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>`;
         });
         console.log(html);
         $('#comments').html(html);
