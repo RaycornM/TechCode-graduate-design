@@ -321,7 +321,7 @@
 
       function loadLatestPosts() {
         $.get('/api/latest-posts', function (posts) {
-          console.log(posts); // 添加这行来检查 API 返回的数据
+          console.log(posts);
           displayLatestPosts(posts);
         });
       }
