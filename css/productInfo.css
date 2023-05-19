@@ -26,7 +26,7 @@ header {
 }
 
 .product-title {
-  font-size: 24px;
+  font-size: xx-large;
   margin: 20px 0;
 }
 
@@ -168,6 +168,7 @@ input[name="rate"]:hover {
 table {
   border-collapse: collapse;
   margin: 0 auto;
+  width: 600px;
 }
 
 th,
@@ -175,6 +176,12 @@ td {
   border: 1px solid black;
   padding: 8px;
   text-align: center;
+  font-size: x-large;
+  font-family: 'SmileySans-Oblique';
+}
+
+pre {
+  font-family: 'SmileySans-Oblique';
 }
 
 th {

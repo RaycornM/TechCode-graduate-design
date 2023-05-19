@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="../css/foot.css" />
     <link rel="stylesheet" href="../css/copyright.css" />
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1356455_c5d3d3ohlbq.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="highlight/styles/railscasts.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -95,117 +100,80 @@
             <img src="/img/nvidia_geforce_rtx_3080_angle_1598979564701.jpg" alt="Product Image" class="product-image">
             <div class="left-bg-text">TechCode</div>
             <div class="right-bg-text">TechCode</div>
-            <h2 class="product-title">GeForce RTX 3080</h2>
-            <table>
-                <tr>
-                    <th>类别</th>
-                    <td>显卡</td>
-                </tr>
-                <tr>
-                    <th>品牌</th>
-                    <td>NVIDIA</td>
-                </tr>
-                <tr>
-                    <th>型号</th>
-                    <td>RTX 3080</td>
-                </tr>
-                <tr>
-                    <th>参考价格</th>
-                    <td>￥5499</td>
-                </tr>
-                <tr>
-                    <th>发布日期</th>
-                    <td>January 11, 2022</td>
-                </tr>
-                <tr>
-                    <th>核心数</th>
-                    <td>8704</td>
-                </tr>
-                <tr>
-                    <th>显存</th>
-                    <td>10GB</td>
-                </tr>
-                <tr>
-                    <th>GDDR6X接口</th>
-                    <td>PCIe 4.0 x16</td>
-                </tr>
-                <tr>
-                    <th>评分</th>
-                    <td>4.5/5 stars</td>
-                </tr>
-            </table>
-            <a href="https://www.bilibili.com/video/BV1oV41127q5/?share_source=copy_web&vd_source=d964b80c7192e3503dbcdc4bc2c41a81"
-                class="review-link"><button class="comparison-button">查看测评</button></a>
-            <button class="comparison-button" onclick="location.href='/compare'">产品对比</button>
-            <div id="commentsSection">
-                <h2>用户评论</h2>
-                <div class="comment-list"></div>
-            </div>
-            <div class="user-ratings">
-                <h3>打个分吧！</h3>
-                <!-- Add star rating inputs -->
-                <section class="container">
-                    <div class="rate-content">
-                        <input type="radio" name="rate">
-                        <input type="radio" name="rate">
-                        <input type="radio" name="rate">
-                        <input type="radio" name="rate">
-                        <input type="radio" name="rate">
-                    </div>
-                </section>
-                <div>
-                    <h3>留下你的评价:</h3>
-                    <textarea id="userComment" name="userComment" rows="4" cols="50" placeholder="说说你的看法吧!"></textarea>
+            <div id="product-details-1"></div>
+        </div>
+        <a href="https://www.bilibili.com/video/BV1oV41127q5/?share_source=copy_web&vd_source=d964b80c7192e3503dbcdc4bc2c41a81"
+            class="review-link"><button class="comparison-button">查看测评</button></a>
+        <button class="comparison-button" onclick="location.href='/compare'">产品对比</button>
+        <div id="commentsSection">
+            <h2>用户评论</h2>
+            <div class="comment-list"></div>
+        </div>
+        <div class="user-ratings">
+            <h3>打个分吧！</h3>
+            <!-- Add star rating inputs -->
+            <section class="container">
+                <div class="rate-content">
+                    <input type="radio" name="rate">
+                    <input type="radio" name="rate">
+                    <input type="radio" name="rate">
+                    <input type="radio" name="rate">
+                    <input type="radio" name="rate">
                 </div>
-                <button class="post-button" id="submitRating" type="button">提交</button>
+            </section>
+            <div>
+                <h3>留下你的评价:</h3>
+                <textarea id="userComment" name="userComment" rows="4" cols="50" placeholder="说说你的看法吧!"></textarea>
             </div>
-            <div class="wsite-spacer" style="height:40px;"></div>
-            <footer>
-                <div class="footcontent">
-                    <div class="footer-wrapper">
-                        <h4 class="footer-title">Quick Link</h4>
-                        <ul class="footer-menu footer-2-menu">
-                            <li><a href="#">关于</a></li>
-                            <li><a href="/product">产品</a></li>
-                            <li><a href="/evaluation">测评</a></li>
-                            <li><a href="#">资讯</a></li>
-                            <li><a href="/forum">论坛</a></li>
-                            <li><a href="#">我的</a></li>
-                            <li><a href="#">帮助和支持</a></li>
+            <button class="post-button" id="submitRating" type="button">提交</button>
+        </div>
+        <div class="wsite-spacer" style="height:40px;"></div>
+        <footer>
+            <div class="footcontent">
+                <div class="footer-wrapper">
+                    <h4 class="footer-title">Quick Link</h4>
+                    <ul class="footer-menu footer-2-menu">
+                        <li><a href="/index">主页</a></li>
+                        <li><a href="/product">产品</a></li>
+                        <li><a href="/evaluation">测评</a></li>
+                        <li><a href="#">资讯</a></li>
+                        <li><a href="/forum">论坛</a></li>
+                        <li><a href="#">我的</a></li>
+                        <li><a href="#">帮助和支持</a></li>
+                      </ul>
+                </div>
+                <div class="subscription">
+                    <div>
+                        <h4 class="dingyuetit">订阅我们</h4>
+                        <p></p>
+                        <p></p>
+                        <div class="subscription-input-wrapper">
+                            <input type="email" name="輸入你的郵箱*" required="" placeholder="輸入你的郵箱*" id="comp-jucjyt59input"
+                                value="" class="sub">
+                            <a href="index.html">
+                                <button2 class="button2" type="button">現在訂閲</button2>
+                            </a>
+                        </div>
+                        <img class="subcon" src="img/connect.png">
+                    </div>
+                    <div></div>
+                </div>
+                </p>
+                <div class="contact-wrapper">
+                    <div>
+                        <h4 class="footer-title">联系我们</h4>
+                        <ul class="footer-link">
+                            <li>广州工商学院, 三水校区 <br> 广东，中国
+                            </li>
+                            <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                    data-cfemail="1e7f7a7377705e7b667f736e727b307d7173">[email&#160;protected]</a>
+                            </li>
+                            <li>114- 5141919810</li>
                         </ul>
                     </div>
-                    <div class="subscription">
-                        <div>
-                            <h4 class="dingyuetit">订阅我们</h4>
-                            <p></p>
-                            <p></p>
-                            <div class="subscription-input-wrapper">
-                                <input type="email" name="輸入你的郵箱*" required="" placeholder="輸入你的郵箱*"
-                                    id="comp-jucjyt59input" value="" class="sub">
-                                <a href="index.html">
-                                    <button2 class="button2" type="button">現在訂閲</button2>
-                                </a>
-                            </div>
-                            <img class="subcon" src="img/connect.png">
-                        </div>
-                        <div></div>
-                    </div>
-                    </p>
-                    <div class="contact-wrapper">
-                        <div>
-                            <h4 class="footer-title">联系我们</h4>
-                            <ul class="footer-link">
-                                <li>广州工商学院, 三水校区 <br> 广东，中国
-                                </li>
-                                <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                        data-cfemail="1e7f7a7377705e7b667f736e727b307d7173">[email&#160;protected]</a>
-                                </li>
-                                <li>114- 5141919810</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-            </footer>
+            </div>
+        </footer>
         </div>
         <div class="copyright">
             <p class="bs">&copy; 2023 by TechCode. Proudly created by Deng Yumin</p>
@@ -262,6 +230,50 @@
                 commentsSection.innerHTML = '<h3>User Ratings and Reviews:</h3>';
                 displayComments();
             }
+
+            function loadProductDetails() {
+                const productId = 1; // 固定的产品ID为1
+                if (productId) {
+                    $.get(`/api/products/${productId}`, function (product) {
+                        const details = `
+                            <h2 class="product-title">${product.model}</h2>
+                            <table>
+                            <tr>
+                                <th>品牌</th>
+                                <td>${product.brand}</td>
+                            </tr>
+                            <tr>
+                                <th>型号</th>
+                                <td>${product.model}</td>
+                            </tr>
+                            <tr>
+                                <th>类型</th>
+                                <td>${product.type}</td>
+                            </tr>
+                            <tr>
+                                <th>参数</th>
+                                <td><pre>${product.parameters}</pre></td>
+                            </tr>
+                            <tr>
+                                <th>参考价格</th>
+                                <td>${product.price} 元</td>
+                            </tr>
+                            </table>
+                        `;
+                        $('#product-details-1').html(details);
+                    });
+                } else {
+                    $('#product-details-1').empty();
+                }
+            }
+
+            $(document).ready(function () {
+                loadProductDetails();
+            });
+            $(document).ready(function () {
+                const productDetails = '#product-details-1';
+                loadProductDetails(productDetails);
+            });
 
             submitRating.addEventListener('click', handleSubmitRating);
             displayComments();
