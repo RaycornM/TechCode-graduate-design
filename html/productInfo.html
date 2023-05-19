@@ -111,7 +111,6 @@
         </div>
         <div class="user-ratings">
             <h3>打个分吧！</h3>
-            <!-- Add star rating inputs -->
             <section class="container">
                 <div class="rate-content">
                     <input type="radio" name="rate">
@@ -219,8 +218,6 @@
                 });
             }
 
-
-            // Handle the submission of user ratings and comments
             function handleSubmitRating() {
                 const userName = document.getElementById('userName').value;
                 const rating = parseFloat(document.querySelector('input[name="rate"]:checked').value);
@@ -232,7 +229,7 @@
             }
 
             function loadProductDetails() {
-                const productId = 1; // 固定的产品ID为1
+                const productId = 1; 
                 if (productId) {
                     $.get(`/api/products/${productId}`, function (product) {
                         const details = `

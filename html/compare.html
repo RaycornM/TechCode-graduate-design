@@ -99,30 +99,30 @@
     <div class="form-row">
       <div class="col">
         <select class="form-control" id="product-select-1">
-          <!-- Product options will be added here -->
+          <!-- 产品选择 -->
         </select>
       </div>
       <div class="col">
         <select class="form-control" id="product-select-2">
-          <!-- Product options will be added here -->
+           <!-- 产品选择 -->
         </select>
       </div>
       <div class="col">
         <select class="form-control" id="product-select-3">
-          <!-- Product options will be added here -->
+           <!-- 产品选择 -->
         </select>
       </div>
     </div>
 
     <div class="row mt-5">
       <div class="col" id="product-details-1">
-        <!-- Product 1 details will be displayed here -->
+        <!-- 第一个产品参数显示在这 -->
       </div>
       <div class="col" id="product-details-2">
-        <!-- Product 2 details will be displayed here -->
+        <!-- 第二个产品参数显示在这 -->
       </div>
       <div class="col" id="product-details-3">
-        <!-- Product 3 details will be displayed here -->
+        <!-- 第三个产品参数显示在这 -->
       </div>
     </div>
   </div>
@@ -180,7 +180,6 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <script>
-    // JavaScript code for getting data and displaying product details
     function loadProducts() {
       $.get('/api/products', function (products) {
         products.forEach((product) => {
